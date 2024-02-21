@@ -4,4 +4,4 @@ Swift Practice
 by Tyler Edwards 
 Started February 6th, 2023
 
-Description: Practice labs and problems from class for learning Swift.
+Description: Practice labs and problems from CPSC 357: iOS Application Development for learning Swift.
