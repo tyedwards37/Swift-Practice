@@ -1,0 +1,357 @@
+Cheat Sheet
+CPSC 357 - iOS App Development
+By Tyler Edwards
+
+**BASICS OF SWIFT**
+
+Naming:
+- NO: math symbols, spaces, begin with number
+- YES: clear, descriptive, camelCase
+
+Types:
+- Type safe = once a type is set it can't be changed 
+- Annotation variables: var ten: Int = 10
+- Inference varables: var ten = 10 (data type inferred)
+- Optional: uses "?"
+    - ex. let maybeNumber = Int? --> let maybeNumer = "hi" --> Int(maybeNumber) = Nil (opposed to error)
+    - Unwrap: uses "!" (optional does contain a value)
+        - check to make sure it's not nil first
+        - ex. print("this is a number: \(maybeNumber!).")
+
+
+Constant: won't change, keyword "let"
+ex. let three = 3
+
+Variable: may change, keyword "var"
+ex. var three = 3 --> three = 4
+
+
+Data Types:
+- Integer, Int, whole numbers, ex. 4
+- Double, Double, decimal points, ex. 3.14
+- Boolean, Bool, true/false, true
+- String, String, text, "hello"
+- Character, Char, single character, "c"
+- Array, list of values, [1, 2, 3, 4]
+- Dictionary, key-organized list, [key1:value1, key2:value2]
+
+Tuples: group together multiple values
+- let tupleNoNames = (1, 2.3, "four") 
+    - tupleNamed.0 --> 1 
+- let tupleNamed = (one:1, twoThree:2.3, four:"four") 
+    - tupleNamed.one --> 1 
+
+Arrays:
+- designed to hold multiple values in a single ordered collection 
+- only can store variables of the same type 
+    - unless using Any type: let mixedArray = [Any] = ["string", 1, 2.3]
+- ex. var arrayInts = [1,2,3,4,5]
+
+- Empty array: var arrayName = [String] ()
+- Default value + size: var arrayDefault = [Int] (repeating: 1, count: 30)
+- can be added: array3 = array1 + array2
+- array.count returns the # of items 
+- array.isEmpty returns true if its empty
+- access: array[1]
+- Random Access: array.randomElement()
+- Shuffle: array.shuffled()
+- Append: array.append("thing") OR array += ["thing"]
+- Insert: array.insert("thing", at: 0) 
+- Remove: array.remove(at: 0) OR array.removeLast()
+- Iteration: for item in array {} OR array.forEach {item in }
+
+Dictionaries:
+- store and oragnize data in key-value pairs 
+- ex. var dictionaryExample : [Int:String] = [0 : "zero", 1: "one", 2 : "two"]
+- Intialize empty: var dictionary = [Int: String] ()
+
+- Sequences: let dict = Dictionary(uniqueKeys: zip(keys, values)) OR zip(1..., values) (with pre-existing values array)
+Count: dict.count
+Access: dict[1] (using key)
+Update: dict.updateValue(newValue, forKey: keyValue)
+Adding: dict[newKey] = newValue
+Removing: dict[keyRemove] = nil OR dict.removeValue(forKey: keyRemove)
+Iteration: for(key, value) in dict {}
+
+
+--
+
+
+Assignment: uses "="
+- sets a value 
+
+(Compound) Arithmentic Operators:
+- Negates value: - (unary), 
+- Addition: +, +=
+- Subtraction: -, -=
+- Mutliplcaition: *, *=
+- Division: /, /=
+- Remainder/Mod: %, %=
+
+Boolean Operators:
+- NOT: !,  inverts
+- AND: &&, both must be true
+- OR: ||, one must be true
+
+Range Operators:
+- x...y: start at x end at y
+- x..<y: x up to y (not inclusive)
+- x...: can extend as far as possible 
+
+Ternary Operator:
+- condition ? true : false
+- ex. let condition = 8, print(condition > 0 ? "true" : "false") --> true
+
+Nil Coalescing Operator: 
+- uses "??", use of a default value 
+- ex. \(name ?? "default name"), "default name" if name == nil
+
+
+--
+
+
+Flow:
+- for-in
+    for constant in range {
+        //constant is not mandatory --> use "_" instead 
+    }
+
+- from:to:by 
+    for constant in range(from: start, to:end, by:interval) {
+        //code
+    }
+
+- while 
+    while condition {
+        //code 
+    }
+
+- repeat ... while 
+    repeat {
+        //will always execute once
+    }  while condition
+
+- break: exits the loop 
+- continue: done with curent loop 
+
+- if - else - else if 
+    if condition {
+        //code
+    } else if condition {
+        //code
+    } else {
+        //code
+    }
+
+- guard: works like if but if the statement is false 
+    - often used to check conditions 
+    guard condition {
+        //code w/ return typically
+    }
+
+- Switch 
+    switch (variable) {
+        case condition1:
+            //code 
+        case condition2 where variable % 2 == 0:
+            //can add condition using where ^
+        default: 
+            //code
+    }
+
+    Tuple Example:
+        let point = (0, 0)
+        switch (point): {
+            case(0, 0):
+                //code
+            case(_, 0):
+                //any value can be there for the "_" space
+            default:
+                //code 
+        }
+
+
+--
+
+
+Functions:
+Performs a certain task, often when given an input and returns an output 
+
+func functionName(variableName: String) -> String {
+    //return type = String, can be omitted to not have a return, if not using it make it = to "_"
+        //opaque return: any type as long is conforms to a set protocol
+    //Parameters: (localParameter: String)
+        //variadic parameters can be used to accept any number of parameters of the same type using "..."
+            //ex. func f(n: Int...) -> f(n: 1, 2, 3, 4, 5)
+        //are considered constants so must create a new var version if they can be changed
+        //In-Out Parameters: bypss the constant parameter, creating a changable parameter with "&"
+            // ex. func f(_ value: inout Int) -> Int {//change value} --> newValue = f(&value)
+    //Arguments: (externalParameter: "test")
+        //can remove external parameters: (_ localParameter: String) --> ("test")
+        //can declare the external parameters: (external localParameter: String) --> (external: "text")
+        //can declare default values: (localParameter: String = "default")
+}
+
+functionName("test")
+
+
+Function signature - function name, parameters, and return type 
+Implicit Returns - if the func contains a single expression the "return" can be omitted
+ex. func implicitReturn() -> String {
+    "this will return"
+}
+
+
+can return mutiple types using tuples 
+ex. func functionName() -> (return1: Int, return2: String, return3: Double)
+
+can have functions as parameter for other functions
+ex. func mainFunction(var1: Int, var2: Int, subFunction: nameOfSubFunction)
+
+
+Closure Expressions:
+- self-contained block of code that can be assigned to a variable
+ex. let closureVariable:(String) -> () = {nameOfString in //code} --> closureVariable("example string")
+- Differences:
+    - no "func" keyword 
+    - closure has no name
+    - closure has "in" keyword
+    - parameters of closure aren't named
+
+
+--
+
+
+Objects/Instances: self-contained modules of functionality w/Properties and Methods 
+Class: defines how an instance will look when created 
+Class ClassName: {
+    //Properties: define constants and variables
+        //ex. var variable: Int = 10 (stored property)
+        //instance1.variable
+        //Computer Property: when value is derived from calculation, often uses getters and setters
+        //Intializer Method:
+            //let example: String -> init(example: String) {self.example = example}
+                //"self" indicates it belonds to the current class instance 
+        //Closure Method:
+            //var example: String = {//code} ()
+        //Lazy Method: not calculated until its used (must be var)
+            //same as closure but with lazy before var
+    //Init Method
+        //intialization of an instance 
+        //ex. init(v: Int) {variable = v}
+    //Deinit Method:
+        //performs clean-up
+        //ex. deinit {//code}
+    //Instance Methods: 
+        //operate on instance of class
+        //ex. func displayVariable() -> Int {return variable)}
+        //instance1.methodName()
+    //Type Methods 
+        //operate at class level and use "class" keyword 
+        //ex. class func maxValue() -> Int {return 99}
+        //ClassName.methodName()
+}
+
+var instance1: ClassName = ClassName()
+
+
+Data Encapsulation - data witihin classes should only be accessed using methods in the class
+
+Inheritance:
+Class SubClass: ParentClass {
+    //Override functions: must have same number and type of parameters, also same return type
+        //override func functionName() {super.functionName() //additional code}
+    //User super.init when intializing 
+}
+
+
+Protocols:
+- set of methods and requirements a function must meet 
+protocol protocolTest {
+    //var name: String {get}
+    //func testFunction() -> String
+}
+
+class protocolFunction: protocolTest {
+    //var name: String {get}
+    //func testFunction() -> String
+}
+
+
+Extensions:
+- extend pre-exisitng Swift classes
+ex. extension Double {var squared: Double {return self * self}}
+
+
+--
+
+
+Structures: keyword "struct"
+- passes by value insteaad of by reference (actual copy created)
+- better for simpler data but cannot use Inheritance
+
+
+Enumeration: 
+- create custom data types with pre-defined values 
+ex. enum Enumeration {
+    case one
+    case two (extraVariable: Int)
+    case three
+}
+
+func enumTest(e: Enumeration) {
+    switch e {
+        case .one:
+            //code
+        case .two where extraVariable > 0:
+            //can add extra conditions using the "where" keyword
+        case .three:
+            //code
+    }
+}
+
+
+--
+
+
+Error Handling:
+- use Enum to represent diff types of potential errors 
+ex. enum FileError: Error {
+    case error1
+    case error2
+    case error3
+} 
+
+func exampleFunct() throws {
+    guard condition else {
+        throw FileError.error1
+    }
+}
+
+- gotta use try 
+- Defer: runs as soon as the method is returned
+
+func overallFunct() -> String {
+    defender {
+        //close files
+        //thi stuff runs after the method calls
+    }
+    do {
+        try exampleFunct()  
+    } catch FileError.error1 {
+        return("error 1")
+    } catch FileError.error2, FileError.error3 {
+        return("can use more than one conditions")
+    } catch {
+        return("default error")
+    } return("success!")
+}
+
+- when a method call fails it will reutrn an Error object 
+do {
+    //code 
+} catch let error {
+    //code 
+}
+
+try! exampleFunct - 100% certainty there will be no errors
